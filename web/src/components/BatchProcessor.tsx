@@ -53,7 +53,7 @@ const BatchProcessor: React.FC = () => {
       );
 
       setResult(response.data);
-    } catch (err) {
+    } catch (err: any) {
       console.error("Batch processing error:", err);
 
       let errorMessage = "批量处理失败，请检查文件夹路径是否正确并重试。";
@@ -70,23 +70,6 @@ const BatchProcessor: React.FC = () => {
 
         if (data && data.details) {
           errorDetail = JSON.stringify(data.details, null, 2);
-        }
-
-        if (status >= 500) {
-          // 服务器端错误，向开发运行时报告
-          if (
-            process.env.NODE_ENV === "development" &&
-            typeof aipaDevRuntime !== "undefined"
-          ) {
-            aipaDevRuntime.reportApiError(
-              {
-                url: `${process.env.AIPA_API_DOMAIN}/api/batch-classify`,
-                method: "POST",
-                body: values,
-              },
-              errorMessage
-            );
-          }
         }
       } else if (err.request) {
         // 请求已发送但没有收到响应
@@ -157,7 +140,12 @@ const BatchProcessor: React.FC = () => {
             help="包含要分类的图片的文件夹路径"
           >
             <Input
-              prefix={<FolderOpenOutlined />}
+              prefix={
+                <FolderOpenOutlined
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              }
               placeholder="例如: C:\Images\ToClassify"
             />
           </Form.Item>
@@ -168,7 +156,12 @@ const BatchProcessor: React.FC = () => {
             help="分类为猫的图片将被复制到此文件夹，留空将使用默认文件夹"
           >
             <Input
-              prefix={<FolderOpenOutlined />}
+              prefix={
+                <FolderOpenOutlined
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              }
               placeholder="例如: C:\Images\Cats（留空则使用默认文件夹）"
             />
           </Form.Item>
@@ -179,7 +172,12 @@ const BatchProcessor: React.FC = () => {
             help="分类为狗的图片将被复制到此文件夹，留空将使用默认文件夹"
           >
             <Input
-              prefix={<FolderOpenOutlined />}
+              prefix={
+                <FolderOpenOutlined
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              }
               placeholder="例如: C:\Images\Dogs（留空则使用默认文件夹）"
             />
           </Form.Item>
@@ -191,7 +189,12 @@ const BatchProcessor: React.FC = () => {
               </Button>
               {error && lastSubmitValues && (
                 <Button
-                  icon={<ReloadOutlined />}
+                  icon={
+                    <ReloadOutlined
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    />
+                  }
                   onClick={handleRetry}
                   disabled={loading}
                 >
@@ -228,7 +231,12 @@ const BatchProcessor: React.FC = () => {
               showIcon
               action={
                 <Button
-                  icon={<ReloadOutlined />}
+                  icon={
+                    <ReloadOutlined
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    />
+                  }
                   size="small"
                   onClick={handleRetry}
                 >

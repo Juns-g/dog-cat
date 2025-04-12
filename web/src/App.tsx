@@ -1,6 +1,3 @@
-/**
- * 应用程序入口组件
- */
 import React from 'react';
 import { Layout, Typography } from 'antd';
 import CatDogClassifier from './index';

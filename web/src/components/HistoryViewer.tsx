@@ -16,7 +16,7 @@ const fetcher = async (url: string) => {
   try {
     const response = await axios.get(url);
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     // 提取错误详情
     let errorMessage = "加载历史记录失败";
 
@@ -25,23 +25,6 @@ const fetcher = async (url: string) => {
 
       if (data && data.message) {
         errorMessage = data.message;
-      }
-
-      if (status >= 500) {
-        // 服务器端错误，向开发运行时报告
-        if (
-          process.env.NODE_ENV === "development" &&
-          typeof aipaDevRuntime !== "undefined"
-        ) {
-          aipaDevRuntime.reportApiError(
-            {
-              url: url,
-              method: "GET",
-              body: null,
-            },
-            errorMessage
-          );
-        }
       }
     } else if (error.request) {
       errorMessage = "无法连接到服务器，请检查网络连接或服务器状态。";
@@ -132,14 +115,22 @@ const HistoryViewer: React.FC = () => {
       <Card
         title={
           <div className="history-title">
-            <HistoryOutlined />
+            <HistoryOutlined
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
             <span style={{ marginLeft: 8 }}>分类历史记录</span>
           </div>
         }
         bordered={false}
         extra={
           <Button
-            icon={<ReloadOutlined />}
+            icon={
+              <ReloadOutlined
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            }
             onClick={handleRefresh}
             disabled={isLoading}
           >
@@ -162,7 +153,12 @@ const HistoryViewer: React.FC = () => {
               action={
                 <Button
                   size="small"
-                  icon={<ReloadOutlined />}
+                  icon={
+                    <ReloadOutlined
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    />
+                  }
                   onClick={handleRefresh}
                 >
                   重试
@@ -173,7 +169,7 @@ const HistoryViewer: React.FC = () => {
         ) : data && data.data && data.data.length > 0 ? (
           <Table
             dataSource={data.data}
-            columns={columns}
+            columns={columns as any}
             rowKey="_id"
             pagination={{
               pageSize: 10,
