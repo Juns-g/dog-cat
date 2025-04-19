@@ -3,7 +3,7 @@ import { z } from "zod";
 import { errorResponse } from "../utils/errorResponse";
 import { Context } from "hono";
 import { isDev } from "../utils/env";
-import { ClassifyResponse } from "../types";
+import { ClassificationResult } from "../../shared/types";
 const classifySchema = z.object({
   image: z.string().optional(),
 });
@@ -33,12 +33,10 @@ export const classifyRoute = (app: any) => {
         const data = await response.json();
         console.log('py',data);
 
-        const result: ClassifyResponse = {
+        const result: ClassificationResult = {
           success: true,
-          result: {
             class: data.class,
             confidence: data.confidence,
-          }
         };
 
         return c.json(result);

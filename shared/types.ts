@@ -4,6 +4,7 @@
 
 // 分类结果类型
 export interface ClassificationResult {
+  success: boolean;
   class: string;
   confidence: number;
   imageUrl?: string;
@@ -11,6 +12,7 @@ export interface ClassificationResult {
   createdAt?: string;
   updatedAt?: string;
 }
+
 
 // 批量分类结果类型
 export interface BatchClassificationResult {

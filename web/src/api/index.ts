@@ -13,11 +13,11 @@ const axiosInstance = axios.create({
 // 相应拦截器
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("🚀 ~ response:", response);
+    console.log("🚀 ~ axios response:", response);
     return response.data;
   },
   (error) => {
-    console.log("🚀 ~ error:", error);
+    console.log("🚀 ~ axios error:", error);
     return Promise.reject(error);
   }
 );
@@ -34,10 +34,12 @@ export const classifyImage = async (
     throw new Error(`图片大小不能超过 ${maxSizeInMB}MB`);
   }
 
-  const response = await axiosInstance.post(`/api/classify`, {
+  const response = await axiosInstance.post<any, ClassificationResult>(`/api/classify`, {
     image: base64Image,
   });
-  return response as any;
+  console.log("🚀 ~ classifyImage response:", response)
+  
+  return response
 };
 
 export const getTest = async () => {

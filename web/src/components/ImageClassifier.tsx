@@ -201,13 +201,8 @@ const ImageClassifier: React.FC = () => {
                   分类结果:
                 </Title>
                 <div className="result-details">
-                  <Title
-                    level={4}
-                    className={`classification-label ${classificationResult.classification}`}
-                  >
-                    {classificationResult.classification === "cat"
-                      ? "🐱 猫"
-                      : "🐶 狗"}
+                  <Title level={4} className="classification-label">
+                    {classificationResult.class === "cat" ? "🐱 猫" : "🐶 狗"}
                   </Title>
                   <Paragraph className="confidence-text">
                     置信度: {classificationResult.confidence}%
@@ -216,7 +211,7 @@ const ImageClassifier: React.FC = () => {
                     percent={classificationResult.confidence}
                     status="active"
                     strokeColor={
-                      classificationResult.classification === "cat"
+                      classificationResult.class === "cat"
                         ? "#ff9c6e"
                         : "#52c41a"
                     }
