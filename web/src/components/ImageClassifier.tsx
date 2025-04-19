@@ -16,18 +16,12 @@ import {
   Alert,
   Space,
 } from "antd";
-import {
-  UploadOutlined,
-  InboxOutlined,
-  FileImageOutlined,
-  ReloadOutlined,
-} from "@ant-design/icons";
+import { InboxOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useDropzone } from "react-dropzone";
-import { classifyImage } from "../api"; // 导入 API 函数
+import { classifyImage } from "../api";
 import { ClassificationResult } from "../../../shared/types";
 
 const { Title, Text, Paragraph } = Typography;
-const { Dragger } = Upload;
 
 const ImageClassifier: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -132,11 +126,7 @@ const ImageClassifier: React.FC = () => {
           <div {...getRootProps()} className="dropzone-area">
             <input {...getInputProps()} />
             <p>
-              <InboxOutlined
-                className="dropzone-icon"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
+              <InboxOutlined className="dropzone-icon" />
             </p>
             <p className="dropzone-text">
               {isDragActive ? "放下图片以上传" : "点击或拖拽图片到此区域上传"}
@@ -179,12 +169,7 @@ const ImageClassifier: React.FC = () => {
                   showIcon
                   action={
                     <Button
-                      icon={
-                        <ReloadOutlined
-                          onPointerEnterCapture={undefined}
-                          onPointerLeaveCapture={undefined}
-                        />
-                      }
+                      icon={<ReloadOutlined />}
                       size="small"
                       onClick={handleRetry}
                     >
@@ -228,12 +213,7 @@ const ImageClassifier: React.FC = () => {
                 {error && (
                   <Button
                     type="primary"
-                    icon={
-                      <ReloadOutlined
-                        onPointerEnterCapture={undefined}
-                        onPointerLeaveCapture={undefined}
-                      />
-                    }
+                    icon={<ReloadOutlined />}
                     onClick={handleRetry}
                   >
                     重试当前图片

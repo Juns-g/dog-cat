@@ -115,22 +115,14 @@ const HistoryViewer: React.FC = () => {
       <Card
         title={
           <div className="history-title">
-            <HistoryOutlined
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            />
+            <HistoryOutlined />
             <span style={{ marginLeft: 8 }}>分类历史记录</span>
           </div>
         }
         bordered={false}
         extra={
           <Button
-            icon={
-              <ReloadOutlined
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            }
+            icon={<ReloadOutlined />}
             onClick={handleRefresh}
             disabled={isLoading}
           >
@@ -153,12 +145,7 @@ const HistoryViewer: React.FC = () => {
               action={
                 <Button
                   size="small"
-                  icon={
-                    <ReloadOutlined
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                    />
-                  }
+                  icon={<ReloadOutlined />}
                   onClick={handleRefresh}
                 >
                   重试

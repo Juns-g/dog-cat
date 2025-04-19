@@ -1,7 +1,7 @@
-import React from 'react';
-import { Layout, Typography } from 'antd';
-import CatDogClassifier from './index';
-import './styles/app.css';
+import React from "react";
+import { Layout, Typography } from "antd";
+import CatDogClassifier from "./index";
+import "./styles/app.css";
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;

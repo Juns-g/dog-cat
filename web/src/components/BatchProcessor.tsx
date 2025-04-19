@@ -140,12 +140,7 @@ const BatchProcessor: React.FC = () => {
             help="包含要分类的图片的文件夹路径"
           >
             <Input
-              prefix={
-                <FolderOpenOutlined
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
-              }
+              prefix={<FolderOpenOutlined />}
               placeholder="例如: C:\Images\ToClassify"
             />
           </Form.Item>
@@ -156,12 +151,7 @@ const BatchProcessor: React.FC = () => {
             help="分类为猫的图片将被复制到此文件夹，留空将使用默认文件夹"
           >
             <Input
-              prefix={
-                <FolderOpenOutlined
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
-              }
+              prefix={<FolderOpenOutlined />}
               placeholder="例如: C:\Images\Cats（留空则使用默认文件夹）"
             />
           </Form.Item>
@@ -172,12 +162,7 @@ const BatchProcessor: React.FC = () => {
             help="分类为狗的图片将被复制到此文件夹，留空将使用默认文件夹"
           >
             <Input
-              prefix={
-                <FolderOpenOutlined
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
-              }
+              prefix={<FolderOpenOutlined />}
               placeholder="例如: C:\Images\Dogs（留空则使用默认文件夹）"
             />
           </Form.Item>
@@ -189,12 +174,7 @@ const BatchProcessor: React.FC = () => {
               </Button>
               {error && lastSubmitValues && (
                 <Button
-                  icon={
-                    <ReloadOutlined
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                    />
-                  }
+                  icon={<ReloadOutlined />}
                   onClick={handleRetry}
                   disabled={loading}
                 >
@@ -231,12 +211,7 @@ const BatchProcessor: React.FC = () => {
               showIcon
               action={
                 <Button
-                  icon={
-                    <ReloadOutlined
-                      onPointerEnterCapture={undefined}
-                      onPointerLeaveCapture={undefined}
-                    />
-                  }
+                  icon={<ReloadOutlined />}
                   size="small"
                   onClick={handleRetry}
                 >
