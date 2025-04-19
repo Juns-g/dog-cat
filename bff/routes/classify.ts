@@ -3,7 +3,7 @@ import { z } from "zod";
 import { errorResponse } from "../utils/errorResponse";
 import { Context } from "hono";
 import { isDev } from "../utils/env";
-
+import { ClassifyResponse } from "../types";
 const classifySchema = z.object({
   image: z.string().optional(),
 });
@@ -22,15 +22,26 @@ export const classifyRoute = (app: any) => {
 
         // 处理分类逻辑...
         // 发送请求到 Python 服务并返回结果
+        const response = await fetch("http://localhost:5001/api/classify", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ image }),
+        });
 
-        // 临时返回模拟数据
-        return c.json({
+        const data = await response.json();
+        console.log('py',data);
+
+        const result: ClassifyResponse = {
           success: true,
           result: {
-            class: "dog",
-            confidence: 0.95,
-          },
-        });
+            class: data.class,
+            confidence: data.confidence,
+          }
+        };
+
+        return c.json(result);
       } catch (error: any) {
         console.error("图片分类过程中发生错误:", error);
         return errorResponse(c, "处理图片时出现内部错误", 500, {

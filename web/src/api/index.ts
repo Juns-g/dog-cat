@@ -26,6 +26,14 @@ axiosInstance.interceptors.response.use(
 export const classifyImage = async (
   base64Image: string
 ): Promise<ClassificationResult> => {
+  // 检查图片大小
+  const sizeInBytes = atob(base64Image.split(',')[1]).length;
+  const maxSizeInMB = 5;
+  
+  if (sizeInBytes > maxSizeInMB * 1024 * 1024) {
+    throw new Error(`图片大小不能超过 ${maxSizeInMB}MB`);
+  }
+
   const response = await axiosInstance.post(`/api/classify`, {
     image: base64Image,
   });

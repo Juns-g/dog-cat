@@ -5,11 +5,15 @@ import torchvision.transforms as transforms
 from PIL import Image
 import os
 import shutil
+import ssl
+
+# 临时禁用 SSL 验证（仅用于开发环境）
+ssl._create_default_https_context = ssl._create_unverified_context
 
 class CatDogClassifier:
     def __init__(self):
         # 加载预训练的 MobileNetV2 模型
-        self.model = models.mobilenet_v2(pretrained=True)
+        self.model = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.IMAGENET1K_V1)
         
         # 修改最后的全连接层，将输出改为2个类别（猫和狗）
         self.model.classifier[1] = nn.Linear(self.model.last_channel, 2)

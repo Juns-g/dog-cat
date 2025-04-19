@@ -5,14 +5,14 @@
 ## 环境要求
 
 - Python 3.8+
-- pip（Python 包管理器）
+- uv（Python 包管理器）
 
 ## 安装步骤
 
 1. 创建并激活虚拟环境（推荐）：
 ```bash
 # 创建虚拟环境
-python -m venv venv
+uv venv
 
 # 激活虚拟环境
 # Windows:
@@ -23,7 +23,7 @@ source venv/bin/activate
 
 2. 安装依赖：
 ```bash
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
 ## 运行服务
@@ -34,7 +34,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-服务将在 http://localhost:5000 启动
+服务将在 http://localhost:5001 启动
 
 ## API 端点
 

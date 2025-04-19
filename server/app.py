@@ -34,50 +34,39 @@ def health_check():
 
 @app.route('/api/classify', methods=['POST'])
 def classify_image():
-    # 检查是否有文件上传
-    if 'file' not in request.files and 'image' not in request.json:
-        return jsonify({'error': 'No file part or base64 image'}), 400
-    
     try:
-        if 'file' in request.files:
-            # 处理文件上传
-            file = request.files['file']
-            if file.filename == '':
-                return jsonify({'error': 'No selected file'}), 400
-                
-            if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
-                unique_filename = f"{uuid.uuid4()}_{filename}"
-                filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
-                file.save(filepath)
-                
-                # 使用模型进行预测
-                result = classifier.predict_image(filepath)
-                
-                return jsonify({
-                    'filename': filename,
-                    'classification': result['class'],
-                    'confidence': result['confidence']
-                })
-        else:
-            # 处理Base64图像
-            base64_image = request.json['image']
-            # 去除Base64前缀
-            if ',' in base64_image:
-                base64_image = base64_image.split(',')[1]
-                
-            # 解码Base64并创建PIL图像
+        # 确保请求包含 JSON 数据
+        if not request.is_json:
+            return jsonify({'error': 'Content-Type must be application/json'}), 400
+
+        data = request.get_json()
+        if 'image' not in data:
+            return jsonify({'error': 'No image data provided'}), 400
+            
+        # 处理Base64图像
+        base64_image = data['image']
+        # 去除Base64前缀
+        if ',' in base64_image:
+            base64_image = base64_image.split(',')[1]
+            
+        # 解码Base64并创建PIL图像
+        try:
             image_data = base64.b64decode(base64_image)
             image = Image.open(io.BytesIO(image_data))
-            
-            # 使用模型进行预测
-            result = classifier.predict_image(image)
-            
-            return jsonify({
-                'filename': 'uploaded_image.jpg',
-                'classification': result['class'],
-                'confidence': result['confidence']
-            })
+        except Exception as e:
+            return jsonify({'error': f'Invalid base64 image data: {str(e)}'}), 400
+        
+        # 使用模型进行预测
+        result = classifier.predict_image(image)
+
+        # 输出结果
+        print('result', result)
+        
+        return jsonify({
+            'filename': 'uploaded_image.jpg',
+            'class': result['class'],
+            'confidence': result['confidence']
+        })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -115,4 +104,4 @@ def get_history():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5001)

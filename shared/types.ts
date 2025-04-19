@@ -4,10 +4,10 @@
 
 // 分类结果类型
 export interface ClassificationResult {
-  classification: string;
+  class: string;
   confidence: number;
   imageUrl?: string;
-  _id?: string;
+  id?: string;
   createdAt?: string;
   updatedAt?: string;
 }
