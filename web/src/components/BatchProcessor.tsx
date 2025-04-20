@@ -18,14 +18,13 @@ import {
 } from "antd";
 import { FolderOpenOutlined, ReloadOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { BatchClassificationResult } from "../../../shared/types";
 
 const { Title, Text, Paragraph } = Typography;
 
 const BatchProcessor: React.FC = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<BatchClassificationResult | null>(null);
+  const [result, setResult] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
   const [lastSubmitValues, setLastSubmitValues] = useState<any>(null);

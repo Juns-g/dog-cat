@@ -8,7 +8,6 @@ import { Card, Table, Tag, Empty, Spin, Typography, Alert, Button } from "antd";
 import { HistoryOutlined, ReloadOutlined } from "@ant-design/icons";
 import useSWR from "swr";
 import axios from "axios";
-import { ClassificationHistory } from "../../../shared/types";
 
 const { Title, Text } = Typography;
 
@@ -37,23 +36,21 @@ const fetcher = async (url: string) => {
 };
 
 const HistoryViewer: React.FC = () => {
-  // 使用SWR获取历史记录
-  const { data, error, isLoading, mutate } = useSWR(
-    `${process.env.AIPA_API_DOMAIN}/api/history`,
-    fetcher,
-    {
-      refreshInterval: 30000, // 每30秒刷新一次
-      revalidateOnFocus: true, // 当页面获取焦点时重新验证
-      shouldRetryOnError: true, // 出错时自动重试
-      errorRetryCount: 3, // 最多重试3次
-    }
-  );
-
-  // 手动刷新数据
   const handleRefresh = () => {
-    mutate();
+    console.log("refresh");
   };
 
+  const isLoading = false;
+  const error = null as any as Error;
+  const data = {
+    data: [
+      {
+        imageUrl: "https://example.com/image1.jpg",
+        classification: "cat",
+        confidence: 95,
+      },
+    ],
+  };
   // 表格列定义
   const columns = [
     {
@@ -139,7 +136,7 @@ const HistoryViewer: React.FC = () => {
           <div className="error-container">
             <Alert
               message="加载错误"
-              description={error.message}
+              description={error?.message}
               type="error"
               showIcon
               action={
