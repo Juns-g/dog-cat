@@ -17,14 +17,15 @@ import {
   Space,
 } from "antd";
 import { FolderOpenOutlined, ReloadOutlined } from "@ant-design/icons";
-import axios from "axios";
+import { BatchClassificationResult, Class } from "../../../shared/types";
+import { textMap } from "@/constant";
 
 const { Title, Text, Paragraph } = Typography;
 
 const BatchProcessor: React.FC = () => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any | null>(null);
+  const [result, setResult] = useState<BatchClassificationResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [errorDetails, setErrorDetails] = useState<string | null>(null);
   const [lastSubmitValues, setLastSubmitValues] = useState<any>(null);
@@ -40,51 +41,6 @@ const BatchProcessor: React.FC = () => {
     setErrorDetails(null);
     setResult(null);
     setLastSubmitValues(values);
-
-    try {
-      const response = await axios.post(
-        `${process.env.AIPA_API_DOMAIN}/api/batch-classify`,
-        {
-          input_dir: values.inputDir,
-          output_cat_dir: values.outputCatDir || "",
-          output_dog_dir: values.outputDogDir || "",
-        }
-      );
-
-      setResult(response.data);
-    } catch (err: any) {
-      console.error("Batch processing error:", err);
-
-      let errorMessage = "批量处理失败，请检查文件夹路径是否正确并重试。";
-      let errorDetail = null;
-
-      // 从错误响应中提取详细信息
-      if (err.response) {
-        // 服务器响应了错误状态码
-        const { data, status } = err.response;
-
-        if (data && data.message) {
-          errorMessage = data.message;
-        }
-
-        if (data && data.details) {
-          errorDetail = JSON.stringify(data.details, null, 2);
-        }
-      } else if (err.request) {
-        // 请求已发送但没有收到响应
-        errorMessage = "无法连接到服务器，请检查网络连接或服务器状态。";
-      } else {
-        // 其他错误
-        errorMessage = `请求设置错误: ${err.message}`;
-      }
-
-      setError(errorMessage);
-      if (errorDetail) {
-        setErrorDetails(errorDetail);
-      }
-    } finally {
-      setLoading(false);
-    }
   };
 
   // 重试上一次请求
@@ -105,10 +61,8 @@ const BatchProcessor: React.FC = () => {
       title: "分类结果",
       dataIndex: "classification",
       key: "classification",
-      render: (text: string) => (
-        <span className={`classification-tag ${text}`}>
-          {text === "cat" ? "🐱 猫" : "🐶 狗"}
-        </span>
+      render: (text: Class) => (
+        <span className={`classification-tag ${text}`}>{textMap[text]}</span>
       ),
     },
     {
@@ -135,12 +89,12 @@ const BatchProcessor: React.FC = () => {
           <Form.Item
             name="inputDir"
             label="输入文件夹路径"
-            rules={[{ required: true, message: "请输入图片文件夹路径" }]}
-            help="包含要分类的图片的文件夹路径"
+            rules={[{ required: true, message: "请选择图片文件夹" }]}
+            help="包含要分类的图片的文件夹"
           >
             <Input
               prefix={<FolderOpenOutlined />}
-              placeholder="例如: C:\Images\ToClassify"
+              placeholder="请选择图片文件夹"
             />
           </Form.Item>
 
@@ -151,7 +105,7 @@ const BatchProcessor: React.FC = () => {
           >
             <Input
               prefix={<FolderOpenOutlined />}
-              placeholder="例如: C:\Images\Cats（留空则使用默认文件夹）"
+              placeholder="请选择输出文件夹（留空则使用默认文件夹）"
             />
           </Form.Item>
 
@@ -162,25 +116,23 @@ const BatchProcessor: React.FC = () => {
           >
             <Input
               prefix={<FolderOpenOutlined />}
-              placeholder="例如: C:\Images\Dogs（留空则使用默认文件夹）"
+              placeholder="请选择输出文件夹（留空则使用默认文件夹）"
             />
           </Form.Item>
 
           <Form.Item>
-            <Space>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                开始批量处理
+            <Button type="primary" htmlType="submit" loading={loading}>
+              开始批量处理
+            </Button>
+            {error && lastSubmitValues && (
+              <Button
+                icon={<ReloadOutlined />}
+                onClick={handleRetry}
+                disabled={loading}
+              >
+                重试上次操作
               </Button>
-              {error && lastSubmitValues && (
-                <Button
-                  icon={<ReloadOutlined />}
-                  onClick={handleRetry}
-                  disabled={loading}
-                >
-                  重试上次操作
-                </Button>
-              )}
-            </Space>
+            )}
           </Form.Item>
         </Form>
 
@@ -230,10 +182,10 @@ const BatchProcessor: React.FC = () => {
                 <strong>总计处理图片:</strong> {result.total} 张
               </Paragraph>
               <Paragraph>
-                <strong>识别为猫的图片:</strong> {result.cat} 张
+                <strong>识别为猫的图片:</strong> {result.cat_count} 张
               </Paragraph>
               <Paragraph>
-                <strong>识别为狗的图片:</strong> {result.dog} 张
+                <strong>识别为狗的图片:</strong> {result.dog_count} 张
               </Paragraph>
               <Paragraph>
                 <strong>处理失败的图片:</strong> {result.errors} 张

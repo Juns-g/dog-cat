@@ -20,6 +20,7 @@ export interface BatchClassificationResult {
   success: boolean;
   cat_count: number;
   dog_count: number;
+  total: number;
   errors?: number;
   details?: ClassResult[];
 }
