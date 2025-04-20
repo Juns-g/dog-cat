@@ -7,7 +7,6 @@ import React, { useState, useCallback } from "react";
 import {
   Card,
   Button,
-  Upload,
   message,
   Spin,
   Typography,
