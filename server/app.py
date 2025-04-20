@@ -55,9 +55,8 @@ def classify_image():
         print('model classifier result', result)
         
         return jsonify({
-            'filename': 'uploaded_image.jpg',
             'class': result['class'],
-            'confidence': result['confidence']
+            'confidence': result['confidence'],
         })
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -77,21 +76,9 @@ def batch_classify():
         
         # 批量分类
         results = classifier.batch_classify(input_dir, output_cat_dir, output_dog_dir)
-        
-        return jsonify(results)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
-# 获取分类历史记录API
-@app.route('/api/history', methods=['GET'])
-def get_history():
-    try:
-        # 在实际应用中，这里应该从数据库读取历史记录
-        # 这里我们简单地返回一个模拟的历史记录列表
-        return jsonify({
-            'status': 'success',
-            'data': []  # 这里应该是从数据库读取的历史记录
-        })
+        print('batch classify results', results)
+        return jsonify(results)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

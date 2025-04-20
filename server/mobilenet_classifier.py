@@ -66,10 +66,10 @@ class CatDogClassifier:
                 _, predicted = torch.max(outputs, 1)
                 probabilities = torch.nn.functional.softmax(outputs, dim=1)
                 confidence = probabilities[0][predicted.item()].item()
-                
+
             return {
                 'class': self.classes[predicted.item()],
-                'confidence': round(confidence * 100, 2)
+                'confidence': round(confidence * 100, 2),
             }
         except Exception as e:
             return {'error': str(e)}
@@ -93,8 +93,8 @@ class CatDogClassifier:
             
         results = {
             'total': 0,
-            'cat': 0,
-            'dog': 0,
+            'cat_count': 0,
+            'dog_count': 0,
             'errors': 0,
             'details': []
         }
@@ -116,7 +116,7 @@ class CatDogClassifier:
                     # 记录分类详情
                     results['details'].append({
                         'filename': filename,
-                        'classification': predicted_class,
+                        'class': predicted_class,
                         'confidence': confidence
                     })
                     
