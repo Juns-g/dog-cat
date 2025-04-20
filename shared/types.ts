@@ -1,6 +1,8 @@
+export type Class = "cat" | "dog";  
+
 export interface ClassificationResult {
   success: boolean;
-  class: string;
+  class: Class;
   confidence: number;
 }
 

@@ -19,6 +19,7 @@ import { InboxOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useDropzone } from "react-dropzone";
 import { classifyImage } from "../api";
 import { ClassificationResult } from "../../../shared/types";
+import { colorMap, textMap } from "@/constant";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -186,7 +187,7 @@ const ImageClassifier: React.FC = () => {
                 </Title>
                 <div className="result-details">
                   <Title level={4} className="classification-label">
-                    {classificationResult.class === "cat" ? "🐱 猫" : "🐶 狗"}
+                    {textMap[classificationResult.class]}
                   </Title>
                   <Paragraph className="confidence-text">
                     置信度: {classificationResult.confidence}%
@@ -194,11 +195,7 @@ const ImageClassifier: React.FC = () => {
                   <Progress
                     percent={classificationResult.confidence}
                     status="active"
-                    strokeColor={
-                      classificationResult.class === "cat"
-                        ? "#ff9c6e"
-                        : "#52c41a"
-                    }
+                    strokeColor={colorMap[classificationResult.class]}
                   />
                 </div>
               </div>
