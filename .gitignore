@@ -7,6 +7,9 @@ yarn-error.log*
 package-lock.json
 yarn.lock
 __pycache__/
+*/__pycache__/*
+.venv/
+*/.venv/*
 
 # 操作系统文件
 .DS_Store
