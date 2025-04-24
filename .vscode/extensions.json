@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "ms-python.black-formatter",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "usernamehw.errorlens",
+    "codezombiech.gitignore",
+    "eamodio.gitlens",
+    "davidbwaters.macos-modern-theme",
+    "pkief.material-icon-theme",
+    "esbenp.prettier-vscode",
+    "alefragnani.project-manager",
+    "ms-python.python",
+    "bradlc.vscode-tailwindcss"
+  ]
+}

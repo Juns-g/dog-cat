@@ -6,6 +6,13 @@
 
 前端基于 React，中间层使用的 hono，后端使用 python 的 flask 实现。
 
+## 运行
+
+### 环境
+
+- Node.js v20 及以上
+- Python
+
 ## 其他
 
 ### 4.12 进展

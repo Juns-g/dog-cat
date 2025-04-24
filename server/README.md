@@ -10,6 +10,7 @@
 ## 安装步骤
 
 1. 创建并激活虚拟环境（推荐）：
+
 ```bash
 # 创建虚拟环境
 uv venv
@@ -18,18 +19,23 @@ uv venv
 # Windows:
 venv\Scripts\activate
 # macOS/Linux:
-source venv/bin/activate
+source .venv/bin/activate
 ```
 
 2. 安装依赖：
+
 ```bash
-uv pip install -r requirements.txt
+uv lock
+uv sync
 ```
+
+选择 py 解释器，地址为：`.venv/bin/python`
 
 ## 运行服务
 
-1. 确保你在 server/python 目录下
+1. 确保你在 server 目录下
 2. 运行 Flask 应用：
+
 ```bash
 python app.py
 ```
@@ -52,4 +58,4 @@ python app.py
 - `uploads/`: 上传文件临时存储目录
 - `classified/`: 分类后的图片存储目录
   - `cat/`: 猫图片目录
-  - `dog/`: 狗图片目录 
+  - `dog/`: 狗图片目录
