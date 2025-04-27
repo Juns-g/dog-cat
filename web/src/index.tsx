@@ -18,13 +18,15 @@ const tabItems = [
     key: "2",
     label: "批量图片处理",
     children: <BatchProcessor />,
+    hide: true,
   },
   {
     key: "3",
     label: "分类历史记录",
     children: <HistoryViewer />,
+    hide: true,
   },
-];
+].filter((item) => !item.hide);
 
 // 主组件
 const CatDogClassifier: React.FC = () => {
