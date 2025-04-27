@@ -10,7 +10,7 @@ import io
 import json
 
 app = Flask(__name__)
-CORS(app)  # 允许跨域请求
+CORS(app)
 
 # 配置上传文件存储路径
 UPLOAD_FOLDER = "uploads"
@@ -23,7 +23,7 @@ os.makedirs(os.path.join(CLASSIFIED_FOLDER, "cat"), exist_ok=True)
 os.makedirs(os.path.join(CLASSIFIED_FOLDER, "dog"), exist_ok=True)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
-app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024  # 限制上传文件大小为16MB
+app.config["MAX_CONTENT_LENGTH"] = 5 * 1024 * 1024
 
 
 def allowed_file(filename):

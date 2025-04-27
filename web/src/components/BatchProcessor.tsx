@@ -14,7 +14,6 @@ import {
   Typography,
   Spin,
   Divider,
-  Space,
 } from "antd";
 import { FolderOpenOutlined, ReloadOutlined } from "@ant-design/icons";
 import { BatchClassificationResult, Class } from "../../../shared/types";
