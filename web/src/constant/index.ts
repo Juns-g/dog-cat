@@ -1,4 +1,4 @@
-import { Class } from "../../../shared/types";
+import { Class } from "../api/types";
 
 export const textMap: Record<Class, string> = {
   cat: "🐱 猫",

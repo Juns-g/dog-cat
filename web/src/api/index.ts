@@ -1,10 +1,7 @@
 import axios from "axios";
-import {
-  BatchClassificationParams,
-  ClassificationResult,
-} from "../../../shared/types";
+import { ClassificationResult } from "./types";
 
-const API_DOMAIN = "http://localhost:8787";
+const API_DOMAIN = "http://localhost:5001";
 
 const axiosInstance = axios.create({
   baseURL: API_DOMAIN,
@@ -41,14 +38,5 @@ export const classifyImage = async (
   );
   console.log("🚀 ~ classifyImage response:", response);
 
-  return response;
-};
-
-/** 批量分类 */
-export const batchClassify = async (params: BatchClassificationParams) => {
-  const response = await axiosInstance.post<any, ClassificationResult>(
-    "/api/batch-classify",
-    params
-  );
   return response;
 };

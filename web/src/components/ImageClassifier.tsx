@@ -18,7 +18,7 @@ import {
 import { InboxOutlined, ReloadOutlined } from "@ant-design/icons";
 import { useDropzone } from "react-dropzone";
 import { classifyImage } from "../api";
-import { ClassificationResult } from "../../../shared/types";
+import { ClassificationResult } from "../api/types";
 import { colorMap, textMap } from "@/constant";
 
 const { Title, Text, Paragraph } = Typography;

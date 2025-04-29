@@ -21,7 +21,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "module": "commonjs"
+    "module": "commonjs",
+    "noImplicitOverride": true
   },
   "include": [
     "./src/**/*"

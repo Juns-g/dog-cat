@@ -10,7 +10,17 @@ import io
 import json
 
 app = Flask(__name__)
-CORS(app)
+CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": ["http://localhost:3000"],
+            "methods": ["GET", "POST", "OPTIONS"],
+            "allow_headers": ["Content-Type"],
+            "supports_credentials": True,
+        }
+    },
+)
 
 # 配置上传文件存储路径
 UPLOAD_FOLDER = "uploads"
@@ -57,6 +67,7 @@ def classify_image():
 
         return jsonify(
             {
+                "success": True,
                 "class": result["class"],
                 "confidence": result["confidence"],
             }
