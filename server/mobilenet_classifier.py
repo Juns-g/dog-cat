@@ -42,7 +42,7 @@ class CatDogClassifier:
             self.model.load_state_dict(
                 torch.load("model_weights.pth", map_location=self.device)
             )
-            print("本地模型权重文件 model_weights.pth 加载成功。")
+            # print("本地模型权重文件 model_weights.pth 加载成功。")
         except:
             print(
                 "本地模型权重文件 model_weights.pth 加载失败，使用 ImageNet 预训练的权重。"
