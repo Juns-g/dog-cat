@@ -50,3 +50,4 @@ coverage/
 *.temp
 .cache/
 .temp/
+docs/
